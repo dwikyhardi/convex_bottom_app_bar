@@ -69,7 +69,7 @@ Param Name        | Type        | Description
 | isEnable   | bool?    | is bottom navigator item enabled
 | index | int   | index of bottom navigator item
 | title | String?   | title of bottom navigator item
-| titleTextStyle | TextStyle?   | tittle text style
+| titleTextStyle | TextStyle?   | title text style
 | overrideOnClick | Function(int)?  | overriding parent onClick 
 | selectedColor | Color?    | color of selected bottom navigator item
 | disabledColor | Color?    | disabled color bottom navigator item
