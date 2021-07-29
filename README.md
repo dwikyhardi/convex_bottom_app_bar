@@ -64,7 +64,7 @@ Param Name        | Type        | Description
 # BottomNavigationIcon
 
 Param Name        | Type        | Description
-:-------------------------|-------------------------| Description
+:-------------------------|-------------------------|-------------------------
 | icon           | IconData | Icon of the bottom navigator item
 | isEnable   | bool?    | is bottom navigator item enabled
 | index | int   | index of bottom navigator item
