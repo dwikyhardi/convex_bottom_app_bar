@@ -4,7 +4,7 @@ customisable bottom app bar
 
 ## Usage
 ```yaml
-convex_bottom_app_bar: ^1.0.0
+convex_bottom_app_bar: ^1.0.0+1
 ```
 
 ```dart

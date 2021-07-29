@@ -1,6 +1,6 @@
 name: convex_bottom_app_bar
 description: customisable bottom app bar
-version: 1.0.0
+version: 1.0.0+1
 homepage: https://github.com/dwikyhardi
 
 environment:
