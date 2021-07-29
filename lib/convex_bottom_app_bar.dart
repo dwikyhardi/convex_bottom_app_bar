@@ -59,7 +59,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
     // index (works with `MainAxisAlignment.spaceAround`)
     final buttonCount = widget.bottomNavigationIcons?.length ?? 0;
     final appWidth = MediaQuery.of(context).size.width;
-    final buttonsWidth = appWidth ;
+    final buttonsWidth = _getButtonContainerWidth();
     final startX = (appWidth - buttonsWidth) / 2;
     return startX +
         index.toDouble() * buttonsWidth / buttonCount +
@@ -86,13 +86,13 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
     );
   }
 
-  // double _getButtonContainerWidth() {
-  //   double width = MediaQuery.of(context).size.width;
-  //   if (width > 400.0) {
-  //     width = 400.0;
-  //   }
-  //   return width;
-  // }
+  double _getButtonContainerWidth() {
+    double width = MediaQuery.of(context).size.width;
+    if (width > 400.0) {
+      width = 400.0;
+    }
+    return width;
+  }
 
   void _handlePressed(int index) {
     if (_selectedIndex == index || _xController.isAnimating) return;
@@ -133,9 +133,9 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
             child: _buildBackground(),
           ),
           Positioned(
-            left: 0,
+            left: (appSize.width - _getButtonContainerWidth()) / 2,
             top: 0,
-            width: appSize.width,
+            width: _getButtonContainerWidth(),
             height: height,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
