@@ -16,6 +16,7 @@ class ConvexBottomAppBar extends StatefulWidget {
   final bool isUseTitle;
   final Color? selectedColor;
   final Color? unselectedColor;
+  final double? convexBottomAppHeight;
 
   ConvexBottomAppBar(
       {Key? key,
@@ -25,7 +26,8 @@ class ConvexBottomAppBar extends StatefulWidget {
       this.titleTextStyle,
       this.backgroundColor,
       this.selectedColor,
-      this.unselectedColor})
+      this.unselectedColor,
+      this.convexBottomAppHeight})
       : super(key: key);
 
   @override
@@ -36,7 +38,8 @@ class ConvexBottomAppBar extends StatefulWidget {
       this.isUseTitle,
       this.titleTextStyle,
       this.selectedColor,
-      this.unselectedColor);
+      this.unselectedColor,
+      this.convexBottomAppHeight);
 }
 
 class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
@@ -53,6 +56,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   final bool isUseTitle;
   final Color? selectedColor;
   final Color? unselectedColor;
+  final double? convexBottomAppHeight;
 
   _ConvexBottomAppBarState(
       this.onClickParent,
@@ -61,7 +65,8 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
       this.isUseTitle,
       this.titleTextStyle,
       this.selectedColor,
-      this.unselectedColor);
+      this.unselectedColor,
+      this.convexBottomAppHeight);
 
   @override
   void initState() {
@@ -79,7 +84,6 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
 
   @override
   void didChangeDependencies() {
-
     _xController.value =
         _indexToPosition(_selectedIndex) / MediaQuery.of(context).size.width;
     _yController.value = 1.0;
@@ -90,7 +94,8 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   double _indexToPosition(int index) {
     // Calculate button positions based off of their
     // index (works with `MainAxisAlignment.spaceAround`)
-    return (_getButtonContainerWidth() * index) + (_getButtonContainerWidth() / 2);
+    return (_getButtonContainerWidth() * index) +
+        (_getButtonContainerWidth() / 2);
   }
 
   @override
@@ -114,7 +119,8 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   }
 
   double _getButtonContainerWidth() {
-    double width = MediaQuery.of(context).size.width / (convexBottomAppBarItems?.length ?? 0);
+    double width = MediaQuery.of(context).size.width /
+        (convexBottomAppBarItems?.length ?? 0);
     // if (width > 400.0) {
     //   width = 400.0;
     // }
@@ -146,7 +152,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   @override
   Widget build(BuildContext context) {
     final appSize = MediaQuery.of(context).size;
-    final height = 60.0;
+    final height = convexBottomAppHeight ?? 60.0;
     return Container(
       width: appSize.width,
       height: height,
@@ -177,7 +183,9 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
 
   List<Container>? populateIcons() {
     List<Container>? items = [];
-    double width = MediaQuery.of(context).size.width / (convexBottomAppBarItems?.length ?? 0);
+    double width = MediaQuery.of(context).size.width /
+        (convexBottomAppBarItems?.length ?? 0);
+    var buttonSize = Size(width , convexBottomAppHeight ?? 50);
     for (int i = 0; i < (convexBottomAppBarItems?.length ?? 0); i++) {
       var item = convexBottomAppBarItems?[i];
       items.add(
@@ -185,6 +193,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
           width: width,
           child: ConvexItem(
             item?.icon ?? Icons.error_outline_rounded,
+            buttonSize,
             title: item?.title,
             index: i,
             titleTextStyle: item?.titleTextStyle ?? titleTextStyle,
@@ -193,6 +202,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
             yController: _yController,
             selectedColor: item?.selectedColor ?? selectedColor,
             unselectedColor: item?.unSelectedColor ?? unselectedColor,
+            backgroundColor: backgroundColor ?? Colors.white,
           ),
         ),
       );

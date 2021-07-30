@@ -53,23 +53,24 @@ ConvexBottomAppBar(
 
 Param Name        | Type        | Description        
 :-------------------------|-------------------------|-------------------------
-| onClickParent           | Function(int)?      | OnClick for all bottom navigator item
-| bottomNavigationIcons   | List<BottomNavigationIcon>?         | List Item bottom navigator
-| bottomNavigationBackground | Color?       | Background bottom app bar
-| isUseTitle | bool     | is bottom navigator item using title
-| selectedColor | Color?    | selected color bottom navigator item
-| unselectedColor | Color?    | unselected color bottom navigator item
+| `onClickParent`           | Function(int)?      | OnClick for all bottom navigator item
+| `bottomNavigationIcons`   | List<BottomNavigationIcon>?         | List Item bottom navigator
+| `bottomNavigationBackground` | Color?       | Background bottom app bar
+| `isUseTitle` | bool     | is bottom navigator item using title
+| `selectedColor` | Color?    | selected color bottom navigator item
+| `unselectedColor` | Color?    | unselected color bottom navigator item
+| `convexBottomAppHeight` | double?    | set convex bottom app bar height 
 
 # BottomNavigationIcon
 
 Param Name        | Type        | Description
 :-------------------------|-------------------------|-------------------------
-| icon           | IconData | Icon of the bottom navigator item
-| title | String?   | title of bottom navigator item
-| titleTextStyle | TextStyle?   | title text style
-| overrideOnClick | Function(int)?  | overriding parent onClick 
-| selectedColor | Color?    | override selected color bottom navigator item
-| unselectedColor | Color?    | override unselected color bottom navigator item
+| `icon`           | IconData | Icon of the bottom navigator item
+| `title` | String?   | title of bottom navigator item
+| `titleTextStyle` | TextStyle?   | title text style
+| `overrideOnClick` | Function(int)?  | overriding parent onClick 
+| `selectedColor` | Color?    | override selected color bottom navigator item
+| `unselectedColor` | Color?    | override unselected color bottom navigator item
 
 
 ## Created & Maintained By

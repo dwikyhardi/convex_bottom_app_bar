@@ -1,3 +1,8 @@
+## 1.0.2
+
+- Fixing bug layout
+- Adding height parameter
+
 ## 1.0.1
 
 - Change some method
