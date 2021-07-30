@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       currentPage = index;
     });
-
   }
 
   @override
@@ -33,6 +32,9 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Convex Bottom App Bar Example'),
         ),
+        extendBody: true,
+        resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: false,
         body: Stack(
           children: [
             SafeArea(
@@ -52,36 +54,31 @@ class _MyAppState extends State<MyApp> {
                 /// onClick for all BottomSheet items
                 onClickParent: onBottomIconPressed,
                 isUseTitle: true,
-                bottomNavigationIcons: [
-                  BottomNavigationIcon(
+                selectedColor: Colors.red,
+                unSelectedColor: Colors.blue,
+                convexBottomAppBarItems: [
+                  ConvexBottomAppBarItem(
                     Icons.home,
-                    index: 0,
                     title: "Home",
-                    selectedColor: Colors.red,
                   ),
-                  BottomNavigationIcon(
+                  ConvexBottomAppBarItem(
                     Icons.search,
-                    index: 1,
                     title: "Search",
                     titleTextStyle: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.lightGreen),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.lightGreen,
+                    ),
                     selectedColor: Colors.green,
                   ),
-                  BottomNavigationIcon(
+                  ConvexBottomAppBarItem(
                     Icons.card_travel,
-                    index: 2,
-                    selectedColor: Colors.blue,
                   ),
-                  BottomNavigationIcon(
+                  ConvexBottomAppBarItem(
                     Icons.favorite_border,
-                    index: 3,
                     title: "Fav",
+
                     /// override onClick for only one items
-                    overrideOnClick: (index) {
-                      setState(() {
-                        currentPage = index;
-                      });
-                    },
+                    overrideOnClick: (index) {},
                   ),
                 ],
               ),

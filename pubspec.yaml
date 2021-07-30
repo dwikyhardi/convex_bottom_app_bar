@@ -1,7 +1,10 @@
 name: convex_bottom_app_bar
 description: customisable bottom app bar
-version: 1.0.0+1
+version: 1.0.1
 homepage: https://github.com/dwikyhardi
+repository: https://github.com/dwikyhardi/convex_bottom_app_bar
+issue_tracker: https://github.com/dwikyhardi/convex_bottom_app_bar/issues
+documentation: https://github.com/dwikyhardi/convex_bottom_app_bar/blob/master/README.md
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

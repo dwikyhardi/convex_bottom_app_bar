@@ -1,27 +1,39 @@
-import 'package:flutter/material.dart';
 import 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
-import 'package:convex_bottom_app_bar/bottom_navigation_icon.dart';
+import 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
+import 'package:convex_bottom_app_bar/convex_item.dart';
+import 'package:flutter/material.dart';
 
 export 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
-export 'package:convex_bottom_app_bar/bottom_navigation_icon.dart';
+export 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
+export 'package:convex_bottom_app_bar/convex_item.dart';
 
 class ConvexBottomAppBar extends StatefulWidget {
   final Function(int)? onClickParent;
-  final List<BottomNavigationIcon>? bottomNavigationIcons;
-  final Color? bottomNavigationBackground;
+  final List<ConvexBottomAppBarItem>? convexBottomAppBarItems;
+  final Color? backgroundColor;
   final bool isUseTitle;
+  final Color? selectedColor;
+  final Color? unSelectedColor;
 
   ConvexBottomAppBar(
       {Key? key,
-        this.onClickParent,
-        required this.bottomNavigationIcons,
-        required this.isUseTitle,
-        this.bottomNavigationBackground})
+      this.onClickParent,
+      required this.convexBottomAppBarItems,
+      required this.isUseTitle,
+      this.backgroundColor,
+      this.selectedColor,
+      this.unSelectedColor})
       : super(key: key);
 
   @override
-  _ConvexBottomAppBarState createState() =>
-      _ConvexBottomAppBarState();
+  _ConvexBottomAppBarState createState() => _ConvexBottomAppBarState(
+      this.onClickParent,
+      this.convexBottomAppBarItems,
+      this.backgroundColor,
+      this.isUseTitle,
+      this.selectedColor,
+      this.unSelectedColor
+  );
 }
 
 class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
@@ -30,6 +42,22 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
 
   late AnimationController _xController;
   late AnimationController _yController;
+
+  final Function(int)? onClickParent;
+  final List<ConvexBottomAppBarItem>? convexBottomAppBarItems;
+  final Color? backgroundColor;
+  final bool isUseTitle;
+  final Color? selectedColor;
+  final Color? unSelectedColor;
+
+
+  _ConvexBottomAppBarState(
+      this.onClickParent,
+      this.convexBottomAppBarItems,
+      this.backgroundColor,
+      this.isUseTitle,
+      this.selectedColor,
+      this.unSelectedColor);
 
   @override
   void initState() {
@@ -57,7 +85,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   double _indexToPosition(int index) {
     // Calculate button positions based off of their
     // index (works with `MainAxisAlignment.spaceAround`)
-    final buttonCount = widget.bottomNavigationIcons?.length ?? 0;
+    final buttonCount = convexBottomAppBarItems?.length ?? 0;
     final appWidth = MediaQuery.of(context).size.width;
     final buttonsWidth = _getButtonContainerWidth();
     final startX = (appWidth - buttonsWidth) / 2;
@@ -82,7 +110,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
             begin: Curves.easeInExpo.transform(_yController.value),
             end: inCurve.transform(_yController.value),
           ).transform(_yController.velocity.sign * 0.5 + 0.5),
-          widget.bottomNavigationBackground ?? Colors.white),
+          backgroundColor ?? Colors.white),
     );
   }
 
@@ -96,8 +124,8 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
 
   void _handlePressed(int index) {
     if (_selectedIndex == index || _xController.isAnimating) return;
-    if (widget.onClickParent != null) {
-      widget.onClickParent!(index);
+    if (onClickParent != null) {
+      onClickParent!(index);
     }
     setState(() {
       _selectedIndex = index;
@@ -109,7 +137,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
         duration: Duration(milliseconds: 310));
     Future.delayed(
       Duration(milliseconds: 250),
-          () {
+      () {
         _yController.animateTo(1.5, duration: Duration(milliseconds: 600));
       },
     );
@@ -147,19 +175,24 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
     );
   }
 
-  List<BottomNavigationIcon>? populateIcons() {
-    return widget.bottomNavigationIcons
-        ?.map((e) => BottomNavigationIcon(
-      e.icon,
-      index: e.index,
-      title: e.title,
-      titleTextStyle: e.titleTextStyle,
-      isEnable: e.isEnable ?? _selectedIndex == e.index,
-      overrideOnClick: e.overrideOnClick ?? _handlePressed,
-      yController: _yController,
-      selectedColor: e.selectedColor,
-      disabledColor: e.disabledColor,
-    ))
-        .toList();
+  List<ConvexItem>? populateIcons() {
+    List<ConvexItem>? items = [];
+    for (int i = 0; i < (convexBottomAppBarItems?.length ?? 0); i++) {
+      var item = convexBottomAppBarItems?[i];
+      items.add(
+        ConvexItem(
+          item?.icon ?? Icons.error_outline_rounded,
+          title: item?.title,
+          index: i,
+          titleTextStyle: item?.titleTextStyle,
+          isEnable: _selectedIndex == i,
+          overrideOnClick: item?.overrideOnClick ?? _handlePressed,
+          yController: _yController,
+          selectedColor: item?.selectedColor ?? selectedColor,
+          unSelectedColor: item?.unSelectedColor ?? unSelectedColor,
+        ),
+      );
+    }
+    return items;
   }
 }

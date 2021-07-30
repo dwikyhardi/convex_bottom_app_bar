@@ -4,7 +4,7 @@ customisable bottom app bar
 
 ## Usage
 ```yaml
-convex_bottom_app_bar: ^1.0.0+1
+convex_bottom_app_bar: ^1.0.1
 ```
 
 ```dart
@@ -13,43 +13,37 @@ import 'package:convex_bottom_app_bar/convex_bottom_app_bar.dart';
 
 ## Param Usage
 ```dart
-    ConvexBottomAppBar(
-      /// onClick for all BottomSheet items
-      onClickParent: onBottomIconPressed,
-      isUseTitle: true,
-      bottomNavigationIcons: [
-        BottomNavigationIcon(
-          Icons.home,
-          index: 0,
-          title: "Home",
-          selectedColor: Colors.red,
-        ),
-        BottomNavigationIcon(
-          Icons.search,
-          index: 1,
-          title: "Search",
-          titleTextStyle: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.lightGreen),
-          selectedColor: Colors.green,
-        ),
-        BottomNavigationIcon(
-          Icons.card_travel,
-          index: 2,
-          selectedColor: Colors.blue,
-        ),
-        BottomNavigationIcon(
-          Icons.favorite_border,
-          index: 3,
-          title: "Fav",
-          /// override onClick for only one items
-          overrideOnClick: (index) {
-            setState(() {
-              currentPage = index;
-            });
-          },
-        ),
-      ],
-    )
+ConvexBottomAppBar(
+  /// onClick for all BottomSheet items
+  onClickParent: onBottomIconPressed,
+  isUseTitle: true,
+  convexBottomAppBarItems: [
+    ConvexBottomAppBarItem(
+      Icons.home,
+      title: "Home",
+      selectedColor: Colors.red,
+    ),
+    ConvexBottomAppBarItem(
+      Icons.search,
+      title: "Search",
+      titleTextStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.lightGreen,
+      ),
+      selectedColor: Colors.green,
+    ),
+    ConvexBottomAppBarItem(
+      Icons.card_travel,
+      selectedColor: Colors.blue,
+    ),
+    ConvexBottomAppBarItem(
+      Icons.favorite_border,
+      title: "Fav",
+      /// override onClick for only one items
+      overrideOnClick: (index) { },
+    ),
+  ],
+)
 ```
 
 # ConvexBottomAppBar
@@ -60,19 +54,19 @@ Param Name        | Type        | Description
 | bottomNavigationIcons   | List<BottomNavigationIcon>?         | List Item bottom navigator
 | bottomNavigationBackground | Color?       | Background bottom app bar
 | isUseTitle | bool     | is bottom navigator item using title
+| selectedColor | Color?    | selected color bottom navigator item
+| unSelected | Color?    | unselected color bottom navigator item
 
 # BottomNavigationIcon
 
 Param Name        | Type        | Description
 :-------------------------|-------------------------|-------------------------
 | icon           | IconData | Icon of the bottom navigator item
-| isEnable   | bool?    | is bottom navigator item enabled
-| index | int   | index of bottom navigator item
 | title | String?   | title of bottom navigator item
 | titleTextStyle | TextStyle?   | title text style
 | overrideOnClick | Function(int)?  | overriding parent onClick 
-| selectedColor | Color?    | color of selected bottom navigator item
-| disabledColor | Color?    | disabled color bottom navigator item
+| selectedColor | Color?    | override selected color bottom navigator item
+| unSelected | Color?    | override unselected color bottom navigator item
 
 
 ## Created & Maintained By

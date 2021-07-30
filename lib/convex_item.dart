@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 
-class BottomNavigationIcon extends StatelessWidget {
+class ConvexItem extends StatelessWidget {
+  /// Icon that displayed on bottom app bar
   final IconData icon;
   final bool? isEnable;
-  final int index;
+  final int? index;
   final String? title;
   final TextStyle? titleTextStyle;
   final Function(int)? overrideOnClick;
-  final AnimationController? yController;
   final Color? selectedColor;
-  final Color? disabledColor;
+  final Color? unSelectedColor;
 
-  BottomNavigationIcon(this.icon,
-      {required this.index,
-      this.title,
-      this.titleTextStyle,
-      this.isEnable,
-      this.overrideOnClick,
-      this.yController,
-      this.selectedColor,
-      this.disabledColor});
+  /// for controlling animation. don't put anything to this parameter
+  final AnimationController? yController;
+
+  ConvexItem(this.icon,
+      {this.index,
+        this.title,
+        this.titleTextStyle,
+        this.isEnable,
+        this.overrideOnClick,
+        this.yController,
+        this.selectedColor,
+        this.unSelectedColor});
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +32,14 @@ class BottomNavigationIcon extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          child: InkWell(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
+          child: GestureDetector(
             onTap: () {
-              overrideOnClick!(index);
+              overrideOnClick!(index ?? 0);
             },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 500),
               alignment:
-                  isEnable ?? false ? Alignment.topCenter : Alignment.center,
+              isEnable ?? false ? Alignment.topCenter : Alignment.center,
               child: AnimatedContainer(
                 height: isEnable ?? false ? 40 : 20,
                 duration: Duration(milliseconds: 300),
@@ -48,7 +50,7 @@ class BottomNavigationIcon extends StatelessWidget {
                     icon,
                     color: isEnable ?? false
                         ? selectedColor ?? Color(0xffE65829)
-                        : disabledColor ?? Theme.of(context).iconTheme.color,
+                        : unSelectedColor ?? Theme.of(context).iconTheme.color,
                   ),
                 ),
               ),
