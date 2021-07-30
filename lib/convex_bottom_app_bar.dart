@@ -10,6 +10,7 @@ export 'package:convex_bottom_app_bar/convex_item.dart';
 class ConvexBottomAppBar extends StatefulWidget {
   final Function(int)? onClickParent;
   final List<ConvexBottomAppBarItem>? convexBottomAppBarItems;
+  final TextStyle? titleTextStyle;
   final Color? backgroundColor;
   final bool isUseTitle;
   final Color? selectedColor;
@@ -20,6 +21,7 @@ class ConvexBottomAppBar extends StatefulWidget {
       this.onClickParent,
       required this.convexBottomAppBarItems,
       required this.isUseTitle,
+      this.titleTextStyle,
       this.backgroundColor,
       this.selectedColor,
       this.unSelectedColor})
@@ -31,9 +33,9 @@ class ConvexBottomAppBar extends StatefulWidget {
       this.convexBottomAppBarItems,
       this.backgroundColor,
       this.isUseTitle,
+      this.titleTextStyle,
       this.selectedColor,
-      this.unSelectedColor
-  );
+      this.unSelectedColor);
 }
 
 class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
@@ -45,17 +47,18 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
 
   final Function(int)? onClickParent;
   final List<ConvexBottomAppBarItem>? convexBottomAppBarItems;
+  final TextStyle? titleTextStyle;
   final Color? backgroundColor;
   final bool isUseTitle;
   final Color? selectedColor;
   final Color? unSelectedColor;
-
 
   _ConvexBottomAppBarState(
       this.onClickParent,
       this.convexBottomAppBarItems,
       this.backgroundColor,
       this.isUseTitle,
+      this.titleTextStyle,
       this.selectedColor,
       this.unSelectedColor);
 
@@ -184,7 +187,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
           item?.icon ?? Icons.error_outline_rounded,
           title: item?.title,
           index: i,
-          titleTextStyle: item?.titleTextStyle,
+          titleTextStyle: item?.titleTextStyle ?? titleTextStyle,
           isEnable: _selectedIndex == i,
           overrideOnClick: item?.overrideOnClick ?? _handlePressed,
           yController: _yController,

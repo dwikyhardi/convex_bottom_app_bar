@@ -56,6 +56,8 @@ class _MyAppState extends State<MyApp> {
                 isUseTitle: true,
                 selectedColor: Colors.red,
                 unSelectedColor: Colors.blue,
+                titleTextStyle: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white),
                 convexBottomAppBarItems: [
                   ConvexBottomAppBarItem(
                     Icons.home,
