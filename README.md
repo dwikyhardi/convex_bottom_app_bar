@@ -17,11 +17,12 @@ ConvexBottomAppBar(
   /// onClick for all BottomSheet items
   onClickParent: onBottomIconPressed,
   isUseTitle: true,
+  selectedColor: Colors.red,
+  unSelectedColor: Colors.blue,
   convexBottomAppBarItems: [
     ConvexBottomAppBarItem(
       Icons.home,
       title: "Home",
-      selectedColor: Colors.red,
     ),
     ConvexBottomAppBarItem(
       Icons.search,
@@ -34,7 +35,6 @@ ConvexBottomAppBar(
     ),
     ConvexBottomAppBarItem(
       Icons.card_travel,
-      selectedColor: Colors.blue,
     ),
     ConvexBottomAppBarItem(
       Icons.favorite_border,
