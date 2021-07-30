@@ -9,7 +9,7 @@ class ConvexItem extends StatelessWidget {
   final TextStyle? titleTextStyle;
   final Function(int)? overrideOnClick;
   final Color? selectedColor;
-  final Color? unSelectedColor;
+  final Color? unselectedColor;
 
   /// for controlling animation. don't put anything to this parameter
   final AnimationController? yController;
@@ -22,7 +22,7 @@ class ConvexItem extends StatelessWidget {
         this.overrideOnClick,
         this.yController,
         this.selectedColor,
-        this.unSelectedColor});
+        this.unselectedColor});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class ConvexItem extends StatelessWidget {
                     icon,
                     color: isEnable ?? false
                         ? selectedColor ?? Color(0xffE65829)
-                        : unSelectedColor ?? Theme.of(context).iconTheme.color,
+                        : unselectedColor ?? Theme.of(context).iconTheme.color,
                   ),
                 ),
               ),

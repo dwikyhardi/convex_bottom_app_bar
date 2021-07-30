@@ -2,6 +2,7 @@ import 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
 import 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
 import 'package:convex_bottom_app_bar/convex_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 export 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
 export 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
@@ -14,7 +15,7 @@ class ConvexBottomAppBar extends StatefulWidget {
   final Color? backgroundColor;
   final bool isUseTitle;
   final Color? selectedColor;
-  final Color? unSelectedColor;
+  final Color? unselectedColor;
 
   ConvexBottomAppBar(
       {Key? key,
@@ -24,7 +25,7 @@ class ConvexBottomAppBar extends StatefulWidget {
       this.titleTextStyle,
       this.backgroundColor,
       this.selectedColor,
-      this.unSelectedColor})
+      this.unselectedColor})
       : super(key: key);
 
   @override
@@ -35,7 +36,7 @@ class ConvexBottomAppBar extends StatefulWidget {
       this.isUseTitle,
       this.titleTextStyle,
       this.selectedColor,
-      this.unSelectedColor);
+      this.unselectedColor);
 }
 
 class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
@@ -51,7 +52,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   final Color? backgroundColor;
   final bool isUseTitle;
   final Color? selectedColor;
-  final Color? unSelectedColor;
+  final Color? unselectedColor;
 
   _ConvexBottomAppBarState(
       this.onClickParent,
@@ -60,7 +61,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
       this.isUseTitle,
       this.titleTextStyle,
       this.selectedColor,
-      this.unSelectedColor);
+      this.unselectedColor);
 
   @override
   void initState() {
@@ -78,6 +79,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
 
   @override
   void didChangeDependencies() {
+
     _xController.value =
         _indexToPosition(_selectedIndex) / MediaQuery.of(context).size.width;
     _yController.value = 1.0;
@@ -88,13 +90,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   double _indexToPosition(int index) {
     // Calculate button positions based off of their
     // index (works with `MainAxisAlignment.spaceAround`)
-    final buttonCount = convexBottomAppBarItems?.length ?? 0;
-    final appWidth = MediaQuery.of(context).size.width;
-    final buttonsWidth = _getButtonContainerWidth();
-    final startX = (appWidth - buttonsWidth) / 2;
-    return startX +
-        index.toDouble() * buttonsWidth / buttonCount +
-        buttonsWidth / (buttonCount * 2.0);
+    return (_getButtonContainerWidth() * index) + (_getButtonContainerWidth() / 2);
   }
 
   @override
@@ -118,10 +114,10 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   }
 
   double _getButtonContainerWidth() {
-    double width = MediaQuery.of(context).size.width;
-    if (width > 400.0) {
-      width = 400.0;
-    }
+    double width = MediaQuery.of(context).size.width / (convexBottomAppBarItems?.length ?? 0);
+    // if (width > 400.0) {
+    //   width = 400.0;
+    // }
     return width;
   }
 
@@ -164,12 +160,13 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
             child: _buildBackground(),
           ),
           Positioned(
-            left: (appSize.width - _getButtonContainerWidth()) / 2,
+            left: 0,
             top: 0,
-            width: _getButtonContainerWidth(),
+            width: appSize.width,
             height: height,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: populateIcons() ?? <Widget>[],
             ),
           ),
@@ -178,21 +175,25 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
     );
   }
 
-  List<ConvexItem>? populateIcons() {
-    List<ConvexItem>? items = [];
+  List<Container>? populateIcons() {
+    List<Container>? items = [];
+    double width = MediaQuery.of(context).size.width / (convexBottomAppBarItems?.length ?? 0);
     for (int i = 0; i < (convexBottomAppBarItems?.length ?? 0); i++) {
       var item = convexBottomAppBarItems?[i];
       items.add(
-        ConvexItem(
-          item?.icon ?? Icons.error_outline_rounded,
-          title: item?.title,
-          index: i,
-          titleTextStyle: item?.titleTextStyle ?? titleTextStyle,
-          isEnable: _selectedIndex == i,
-          overrideOnClick: item?.overrideOnClick ?? _handlePressed,
-          yController: _yController,
-          selectedColor: item?.selectedColor ?? selectedColor,
-          unSelectedColor: item?.unSelectedColor ?? unSelectedColor,
+        Container(
+          width: width,
+          child: ConvexItem(
+            item?.icon ?? Icons.error_outline_rounded,
+            title: item?.title,
+            index: i,
+            titleTextStyle: item?.titleTextStyle ?? titleTextStyle,
+            isEnable: _selectedIndex == i,
+            overrideOnClick: item?.overrideOnClick ?? _handlePressed,
+            yController: _yController,
+            selectedColor: item?.selectedColor ?? selectedColor,
+            unselectedColor: item?.unSelectedColor ?? unselectedColor,
+          ),
         ),
       );
     }

@@ -18,7 +18,10 @@ ConvexBottomAppBar(
   onClickParent: onBottomIconPressed,
   isUseTitle: true,
   selectedColor: Colors.red,
-  unSelectedColor: Colors.blue,
+  unselectedColor: Colors.blue,
+  titleTextStyle: TextStyle(
+    color: Colors.white,
+  ),
   convexBottomAppBarItems: [
     ConvexBottomAppBarItem(
       Icons.home,
@@ -55,7 +58,7 @@ Param Name        | Type        | Description
 | bottomNavigationBackground | Color?       | Background bottom app bar
 | isUseTitle | bool     | is bottom navigator item using title
 | selectedColor | Color?    | selected color bottom navigator item
-| unSelectedColor | Color?    | unselected color bottom navigator item
+| unselectedColor | Color?    | unselected color bottom navigator item
 
 # BottomNavigationIcon
 
@@ -66,7 +69,7 @@ Param Name        | Type        | Description
 | titleTextStyle | TextStyle?   | title text style
 | overrideOnClick | Function(int)?  | overriding parent onClick 
 | selectedColor | Color?    | override selected color bottom navigator item
-| unSelectedColor | Color?    | override unselected color bottom navigator item
+| unselectedColor | Color?    | override unselected color bottom navigator item
 
 
 ## Created & Maintained By

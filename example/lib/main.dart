@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
                 onClickParent: onBottomIconPressed,
                 isUseTitle: true,
                 selectedColor: Colors.red,
-                unSelectedColor: Colors.blue,
+                unselectedColor: Colors.blue,
                 titleTextStyle: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.white),
                 convexBottomAppBarItems: [
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                     title: "Fav",
 
                     /// override onClick for only one items
-                    overrideOnClick: (index) {},
+                    // overrideOnClick: (index) {},
                   ),
                 ],
               ),
