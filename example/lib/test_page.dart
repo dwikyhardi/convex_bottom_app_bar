@@ -15,7 +15,7 @@ class _TestPageState extends State<TestPage> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
-      color: widget.color,
+      color: Colors.black12,
       alignment: Alignment.center,
       child: Text(widget.name,style: TextStyle(
         color: Colors.white,
