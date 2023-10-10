@@ -36,13 +36,12 @@ class BackgroundCurvePainter extends CustomPainter {
       ..moveTo(0, 0)
       ..addRRect(
         RRect.fromRectAndRadius(
-          Rect.fromCenter(
-            center: Offset(x1, 0),
-            width: _indicatorWidth - 16,
-            height: 4,
-          ),
-          const Radius.circular(4)
-        ),
+            Rect.fromCenter(
+              center: Offset(x1, 0),
+              width: _indicatorWidth - 16,
+              height: 4,
+            ),
+            const Radius.circular(4)),
       );
 
     final indicatorPaint = Paint()..color = _indicatorColor;

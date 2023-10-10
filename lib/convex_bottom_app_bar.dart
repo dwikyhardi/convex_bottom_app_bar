@@ -71,7 +71,6 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
 
   @override
   void initState() {
-
     Listenable.merge([_xController, _yController]).addListener(() {
       // _updateAnimation();
       setState(() {});
