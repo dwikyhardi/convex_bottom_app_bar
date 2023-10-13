@@ -114,6 +114,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   Widget _buildBackground() {
     const inCurve = ElasticOutCurve(0.38);
     return CustomPaint(
+      size: Size(MediaQuery.of(context).size.width, 10),
       painter: BackgroundCurvePainter(
         x: _xController.value * MediaQuery.of(context).size.width,
         normalizedY: Tween<double>(
@@ -169,24 +170,24 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   Widget build(BuildContext context) {
     final appSize = MediaQuery.of(context).size;
     final height =
-        widget.convexBottomAppHeight ?? AppBar().preferredSize.height * 1.5;
+        widget.convexBottomAppHeight ?? AppBar().preferredSize.height;
     return SizedBox(
       width: appSize.width,
-      height: height + 32,
+      height: height,
       child: Stack(
         children: [
           Positioned(
             left: 0,
-            top: 32,
+            top: 0,
             width: appSize.width,
             height: height,
             child: _buildBackground(),
           ),
           Positioned(
             left: 0,
-            top: 32,
+            top: 0,
             width: appSize.width,
-            height: height - 32,
+            height: height,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,

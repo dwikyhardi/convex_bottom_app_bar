@@ -55,64 +55,50 @@ class ConvexTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // SizedBox.expand(
-        //   child: TabBarView(
-        //     physics: const NeverScrollableScrollPhysics(),
-        //     controller: _controller,
-        //     children: _screens
-        //         .map(
-        //           (e) => Padding(
-        //             padding: EdgeInsets.only(
-        //                 bottom: _convexBottomAppHeight ??
-        //                     AppBar().preferredSize.height * 1.5),
-        //             child: e,
-        //           ),
-        //         )
-        //         .toList(),
-        //   ),
-        // ),
-        ListenableBuilder(
-          listenable: _controller,
-          builder: (ctx, widget) {
-            return IndexedStack(
-              sizing: StackFit.expand,
-              index: _controller.index,
-              children: _screens
-                  .map(
-                    (e) => Padding(
-                      padding: EdgeInsets.only(
-                          bottom: _convexBottomAppHeight ??
-                              AppBar().preferredSize.height * 1.5),
-                      child: e,
-                    ),
-                  )
-                  .toList(),
-            );
-          },
-        ),
-        Positioned(
-          bottom: 0.0,
-          width: MediaQuery.of(context).size.width,
-          child: ConvexBottomAppBar(
-            items: _items,
-            onTap: _onTap,
-            controller: _controller,
-            unSelectedColor: _unselectedColor,
-            selectedColor: _selectedColor,
-            isUseCenterFAB: _isUseCenterFAB,
-            floatingActionButtonDecoration: _floatingActionButtonDecoration,
-            floatingActionButtonTitle: _floatingActionButtonTitle,
-            indicatorColor: _indicatorColor,
-            backgroundColor: _backgroundColor,
-            convexBottomAppHeight: _convexBottomAppHeight,
-            floatingActionButtonCenterWidget: _floatingActionButtonCenterWidget,
-            titleTextStyle: _titleTextStyle,
+    return SafeArea(
+      top: false,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ListenableBuilder(
+            listenable: _controller,
+            builder: (ctx, widget) {
+              return IndexedStack(
+                sizing: StackFit.expand,
+                index: _controller.index,
+                children: _screens
+                    .map(
+                      (e) => Padding(
+                        padding: EdgeInsets.only(
+                            bottom: _convexBottomAppHeight ?? AppBar().preferredSize.height),
+                        child: e,
+                      ),
+                    )
+                    .toList(),
+              );
+            },
           ),
-        ),
-      ],
+          Positioned(
+            bottom: 0.0,
+            width: MediaQuery.of(context).size.width,
+            child: ConvexBottomAppBar(
+              items: _items,
+              onTap: _onTap,
+              controller: _controller,
+              unSelectedColor: _unselectedColor,
+              selectedColor: _selectedColor,
+              isUseCenterFAB: _isUseCenterFAB,
+              floatingActionButtonDecoration: _floatingActionButtonDecoration,
+              floatingActionButtonTitle: _floatingActionButtonTitle,
+              indicatorColor: _indicatorColor,
+              backgroundColor: _backgroundColor,
+              convexBottomAppHeight: _convexBottomAppHeight,
+              floatingActionButtonCenterWidget: _floatingActionButtonCenterWidget,
+              titleTextStyle: _titleTextStyle,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

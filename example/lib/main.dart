@@ -11,8 +11,13 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin{
   int currentPage = 0;
+  late ConvexTabController tabController = ConvexTabController(
+    initialIndex: 0,
+    length: 4,
+    vsync: this,
+  );
 
   @override
   void initState() {
@@ -35,35 +40,14 @@ class _MyAppState extends State<MyApp> {
         extendBody: true,
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: false,
-        body: IndexedStack(
-          index: currentPage,
-          children: <Widget>[
+        body: ConvexTabView(
+          controller: tabController,
+          screens: [
             TestPage('Home', Colors.red),
             TestPage('Search', Colors.blue),
             TestPage('Cart', Colors.green),
             TestPage('Favorite', Colors.deepOrange),
           ],
-        ),
-        // floatingActionButton: FloatingActionButton(onPressed: (){}),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: ConvexBottomAppBar(
-          /// onClick for all BottomSheet items
-          onTap: onBottomIconPressed,
-          isUseCenterFAB: true,
-          floatingActionButtonTitle: Text(
-            'Scan QR',
-            style: TextStyle(
-              fontSize: 11,
-            ),
-          ),
-          floatingActionButtonCenterWidget: Icon(
-            Icons.qr_code_scanner_rounded,
-            color: Colors.white,
-          ),
-          selectedColor: Colors.red,
-          unSelectedColor: Colors.blue,
-          titleTextStyle:
-              TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           items: [
             ConvexBottomAppBarItem(
               icon: Icon(Icons.home),
