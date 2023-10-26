@@ -10,6 +10,7 @@ class BackgroundCurvePainter extends CustomPainter {
   final Color _indicatorColor;
   final Color _backgroundColor;
   final double _indicatorWidth;
+  final bool _isJustIndicator;
 
   BackgroundCurvePainter({
     required double x,
@@ -17,11 +18,13 @@ class BackgroundCurvePainter extends CustomPainter {
     required Color backgroundColor,
     required Color indicatorColor,
     required double indicatorWidth,
+    required bool isJustIndicator,
   })  : _x = x,
         _normalizedY = normalizedY,
         _indicatorColor = indicatorColor,
         _backgroundColor = backgroundColor,
-        _indicatorWidth = indicatorWidth;
+        _indicatorWidth = indicatorWidth,
+        _isJustIndicator = isJustIndicator;
 
   @override
   void paint(canvas, size) {
@@ -51,7 +54,9 @@ class BackgroundCurvePainter extends CustomPainter {
       ..moveTo(0, 0)
       ..addRect(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    canvas.drawPath(backgroundPath, backgroundPaint);
+    if (!_isJustIndicator) {
+      canvas.drawPath(backgroundPath, backgroundPaint);
+    }
     canvas.drawPath(indicatorPath, indicatorPaint);
   }
 

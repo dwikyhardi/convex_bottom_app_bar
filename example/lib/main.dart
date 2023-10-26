@@ -11,12 +11,11 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin{
+class _MyAppState extends State<MyApp> {
   int currentPage = 0;
   late ConvexTabController tabController = ConvexTabController(
     initialIndex: 0,
-    length: 4,
-    vsync: this,
+    length: _items().length,
   );
 
   @override
@@ -40,38 +39,70 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin{
         extendBody: true,
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: false,
-        body: ConvexTabView(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+        ),
+        body: ConvexBody(
           controller: tabController,
-          screens: [
+          children: [
             TestPage('Home', Colors.red),
             TestPage('Search', Colors.blue),
+            TestPage('Scan QR', Colors.blue),
             TestPage('Cart', Colors.green),
             TestPage('Favorite', Colors.deepOrange),
           ],
-          items: [
-            ConvexBottomAppBarItem(
-              icon: Icon(Icons.home),
-              title: 'Home',
-            ),
-            ConvexBottomAppBarItem(
-              icon: Icon(Icons.search),
-              title: 'Search',
-              textStyle: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.lightGreen,
-              ),
-              selectedColor: Colors.green,
-            ),
-            ConvexBottomAppBarItem(
-              icon: Icon(Icons.card_travel),
-            ),
-            ConvexBottomAppBarItem(
-              icon: Icon(Icons.favorite_border),
-              title: 'Fav',
-            ),
-          ],
         ),
+        bottomNavigationBar: ConvexBottomAppBarV2(
+          controller: tabController,
+          notchMargin: 5,
+          shape: CircularNotchedRectangle(),
+          backgroundColor: Colors.white,
+          items: _items(),
+        ),
+        // body: ConvexTabView(
+        //   controller: tabController,
+        //   screens: [
+        //     TestPage('Home', Colors.red),
+        //     TestPage('Search', Colors.blue),
+        //     TestPage('Search', Colors.blue),
+        //     TestPage('Cart', Colors.green),
+        //     TestPage('Favorite', Colors.deepOrange),
+        //   ],
+        //   items: _items(),
+        // ),
       ),
     );
+  }
+
+  List<ConvexBottomAppBarItem> _items() {
+    return [
+      ConvexBottomAppBarItem(
+        icon: Icon(Icons.home),
+        title: 'Home',
+      ),
+      ConvexBottomAppBarItem(
+        icon: Icon(Icons.search),
+        title: 'Search',
+        textStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.lightGreen,
+        ),
+        selectedColor: Colors.green,
+      ),
+      ConvexBottomAppBarItem(
+          title: 'Scan QR',
+          textStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 11,
+              color: Color(0xFFA6A6A6))),
+      ConvexBottomAppBarItem(
+        icon: Icon(Icons.card_travel),
+      ),
+      ConvexBottomAppBarItem(
+        icon: Icon(Icons.favorite_border),
+        title: 'Fav',
+      ),
+    ];
   }
 }

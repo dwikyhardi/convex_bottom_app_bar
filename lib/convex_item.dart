@@ -12,32 +12,65 @@ class ConvexItem extends StatelessWidget {
   final Function(int) onTap;
   final int index;
   final Color? color;
-  final Color? backgroundColor;
 
   const ConvexItem({
     super.key,
     required this.icon,
     required this.index,
     required this.onTap,
-    required this.controller,
+    this.controller,
     this.title,
     this.titleTextStyle,
     this.isEnable,
     this.itemSize,
     this.color,
-    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         onTap(index);
       },
-      child: Container(
-        color: backgroundColor,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+      child: Builder(builder: (context) {
+        if (icon == null) {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                title ?? '',
+                style: titleTextStyle ??
+                    TextStyle(
+                      color: color,
+                      fontSize: 11,
+                    ),
+              ),
+              const SizedBox(height: 8),
+            ],
+          );
+        }
+
+        if (title == null) {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  color ?? Colors.black,
+                  BlendMode.srcIn,
+                ),
+                child: icon,
+              ),
+            ],
+          );
+        }
+
+        return Column(
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -48,8 +81,9 @@ class ConvexItem extends StatelessWidget {
               ),
               child: icon,
             ),
-            if (title != null)
-              Text(
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
                 title ?? '',
                 style: titleTextStyle ??
                     TextStyle(
@@ -57,9 +91,10 @@ class ConvexItem extends StatelessWidget {
                       fontSize: 11,
                     ),
               ),
+            ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

@@ -5,6 +5,8 @@ export 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
 export 'package:convex_bottom_app_bar/convex_item.dart';
 export 'package:convex_bottom_app_bar/convex_tab_controller.dart';
 export 'package:convex_bottom_app_bar/convex_tab_view.dart';
+export 'package:convex_bottom_app_bar/convex_bottom_app_bar_v2.dart';
+export 'package:convex_bottom_app_bar/convex_body.dart';
 
 import 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
 import 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
@@ -124,6 +126,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
         backgroundColor: widget.backgroundColor ?? Colors.white,
         indicatorColor: widget.indicatorColor ?? Colors.blue,
         indicatorWidth: _getButtonContainerWidth(),
+        isJustIndicator: false,
       ),
     );
   }
@@ -257,7 +260,6 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
           color: widget.controller?.index == i
               ? item.selectedColor ?? widget.selectedColor
               : item.unSelectedColor ?? widget.unSelectedColor,
-          backgroundColor: widget.backgroundColor ?? Colors.white,
         ),
       );
     }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ConvexTabController extends TabController {
+class ConvexTabController extends ChangeNotifier {
   ConvexTabController({
     int initialIndex = 0,
     required int length,
-    required TickerProvider vsync,
   })  : assert(initialIndex >= 0),
         assert(initialIndex < length),
-        super(length: length, vsync: vsync, initialIndex: initialIndex);
+        index = initialIndex;
+
+  late int index;
 
   void jumpToTab(int value) {
     assert(value >= 0);
