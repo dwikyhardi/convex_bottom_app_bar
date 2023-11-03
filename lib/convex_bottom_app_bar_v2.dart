@@ -72,9 +72,10 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     geometryListenable = Scaffold.geometryOf(context);
+
     _updateAnimation();
+    super.didChangeDependencies();
   }
 
   @override
@@ -84,6 +85,7 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
       setState(() {});
     });
 
+    widget.controller.addListener(_updateAnimation);
     super.initState();
   }
 
