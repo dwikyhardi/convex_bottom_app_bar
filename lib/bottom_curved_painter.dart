@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class BackgroundCurvePainter extends CustomPainter {
   static const _topDistance = 0.0;
-  static const _bottomDistance = 10.0;
+  static const _bottomDistance = 100.0;
 
   final double _x;
   final double _normalizedY;
@@ -33,10 +33,10 @@ class BackgroundCurvePainter extends CustomPainter {
 
     final dist = Tween<double>(begin: _topDistance, end: _bottomDistance)
         .transform(const LinearPointCurve(0.5, 0.0).transform(norm));
-    final x1 = _x - dist / 2;
+    final x1 = _x - (dist / 2);
 
     final indicatorPath = Path()
-      ..moveTo(0, 0)
+      ..moveTo(_x, 0)
       ..addRRect(
         RRect.fromRectAndRadius(
             Rect.fromCenter(
