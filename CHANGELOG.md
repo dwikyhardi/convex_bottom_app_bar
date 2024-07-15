@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Fixing bug layout when using `FAB` with `BottomNavigationBar`
+
 ## 1.0.2
 
 - Fixing bug layout
