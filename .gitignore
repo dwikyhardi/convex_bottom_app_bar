@@ -6,3 +6,8 @@
 .pub/
 
 build/
+
+convex_bottom_app_bar.iml
+
+# FVM Version Cache
+.fvm/

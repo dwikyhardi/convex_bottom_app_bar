@@ -202,8 +202,34 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
     // }
   }
 
+  /// Handles the tap event on an item in the ConvexBottomAppBar.
+  ///
+  /// This method performs several checks before triggering a tab change:
+  /// - It first checks if the current Scaffold has a FloatingActionButton. If so,
+  ///   it conditionally disables certain items in the ConvexBottomAppBar based on
+  ///   the number of items and their respective positions. This is to avoid
+  ///   interaction conflicts between the FloatingActionButton and the
+  ///   ConvexBottomAppBar items that would occupy the same space.
+  /// - If there are 7 items and the tapped item's index is 3, the method returns
+  ///   without action, as the item is disabled. This typically corresponds to the
+  ///   center item in a bottom app bar with 7 items, where the FloatingActionButton
+  ///   would be located.
+  /// - Similar checks and returns are performed for bottom app bars with 5 items
+  ///   (center item at index 2) and 3 items (center item at index 1).
+  /// - If the tapped item's index is the same as the currently active tab, or if
+  ///   the animation controller `_xController` is currently animating, the method
+  ///   returns without action to prevent unnecessary tab changes.
+  /// - Finally, if none of the above conditions are met, the method proceeds to
+  ///   change the active tab to the tapped item's index and triggers an update
+  ///   to the animation to reflect the change.
+  ///
+  /// @param index The index of the tapped item in the ConvexBottomAppBar.
   void _handlePressed(int index) {
-    if (widget.items.length == 5 && index == 2) return;
+    if (Scaffold.of(context).hasFloatingActionButton) {
+      if (widget.items.length == 7 && index == 3) return;
+      if (widget.items.length == 5 && index == 2) return;
+      if (widget.items.length == 3 && index == 1) return;
+    }
 
     if (widget.controller.index == index || _xController.isAnimating) return;
 
