@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ConvexBottomAppBarItem {
   final Widget? icon;
+  final Widget? unselectedIcon;
   final String? title;
   final bool? isEnable;
   final TextStyle? textStyle;
@@ -13,6 +14,7 @@ class ConvexBottomAppBarItem {
 
   ConvexBottomAppBarItem({
     this.icon,
+    this.unselectedIcon,
     this.title,
     this.textStyle,
     this.selectedColor,

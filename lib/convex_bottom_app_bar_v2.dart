@@ -283,12 +283,14 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
             onTap: _handlePressed,
             index: i,
             isEnable: item.isEnable,
-            icon: item.icon,
+            icon:
+                widget.controller.index == i ? item.icon : item.unselectedIcon,
             itemSize: item.size,
             title: item.title,
             controller: widget.controller,
             titleTextStyle:
                 item.textStyle?.copyWith(color: getTitleColor(i, item)),
+            isNeedIconColorFilter: item.unselectedIcon == null,
             color: widget.controller.index == i
                 ? item.selectedColor ?? widget.selectedColor
                 : item.unSelectedColor ?? widget.unSelectedColor,

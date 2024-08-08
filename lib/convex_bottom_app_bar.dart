@@ -32,7 +32,6 @@ class ConvexBottomAppBar extends StatefulWidget {
   final BoxDecoration? floatingActionButtonDecoration;
 
   const ConvexBottomAppBar({
-    Key? key,
     this.onTap,
     this.controller,
     required this.items,
@@ -48,6 +47,7 @@ class ConvexBottomAppBar extends StatefulWidget {
     this.floatingActionButtonCenterWidget,
     this.floatingActionButtonTitle,
     this.floatingActionButtonDecoration,
+    super.key,
   })  : assert(items.length > 0),
         assert(
           isUseCenterFAB == true
@@ -55,8 +55,7 @@ class ConvexBottomAppBar extends StatefulWidget {
               : true,
           '\n\nIf Using floating action button '
           'you must provide 2, 4 or 6 "convexBottomAppBarItems"\n',
-        ),
-        super(key: key);
+        );
 
   @override
   State<ConvexBottomAppBar> createState() => _ConvexBottomAppBarState();

@@ -10,6 +10,7 @@ class ConvexItem extends StatelessWidget {
   final String? title;
   final TextStyle? titleTextStyle;
   final Function(int) onTap;
+  final bool isNeedIconColorFilter;
   final int index;
   final Color? color;
 
@@ -24,6 +25,7 @@ class ConvexItem extends StatelessWidget {
     this.isEnable,
     this.itemSize,
     this.color,
+    this.isNeedIconColorFilter = true,
   });
 
   @override
@@ -58,13 +60,15 @@ class ConvexItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  color ?? Colors.black,
-                  BlendMode.srcIn,
-                ),
-                child: icon,
-              ),
+              isNeedIconColorFilter
+                  ? ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        color ?? Colors.black,
+                        BlendMode.srcIn,
+                      ),
+                      child: icon,
+                    )
+                  : icon ?? const SizedBox(),
             ],
           );
         }
@@ -74,13 +78,15 @@ class ConvexItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                color ?? Colors.black,
-                BlendMode.srcIn,
-              ),
-              child: icon,
-            ),
+            isNeedIconColorFilter
+                ? ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      color ?? Colors.black,
+                      BlendMode.srcIn,
+                    ),
+                    child: icon,
+                  )
+                : icon ?? const SizedBox(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Text(
