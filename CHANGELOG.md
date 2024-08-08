@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Adding `unselectedIcon` parameter to `ConvexBottomAppBarItem`
+
 ## 1.0.3
 
 - Fixing bug layout when using `FAB` with `BottomNavigationBar`
