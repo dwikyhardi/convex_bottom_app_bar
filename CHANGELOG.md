@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Fix icon
+
 ## 1.0.4
 
 - Adding `unselectedIcon` parameter to `ConvexBottomAppBarItem`
