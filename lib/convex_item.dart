@@ -1,10 +1,8 @@
-import 'package:convex_bottom_app_bar/convex_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ConvexItem extends StatelessWidget {
   /// Icon that displayed on bottom app bar
   final Widget? icon;
-  final ConvexTabController? controller;
   final double? itemSize;
   final bool? isEnable;
   final String? title;
@@ -19,7 +17,6 @@ class ConvexItem extends StatelessWidget {
     required this.icon,
     required this.index,
     required this.onTap,
-    this.controller,
     this.title,
     this.titleTextStyle,
     this.isEnable,

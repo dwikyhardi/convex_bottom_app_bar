@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 class ConvexTabController extends ChangeNotifier {
   ConvexTabController({
     int initialIndex = 0,
-    required int length,
   })  : assert(initialIndex >= 0),
-        assert(initialIndex < length),
         index = initialIndex;
 
   late int index;

@@ -85,8 +85,12 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
       setState(() {});
     });
 
-    widget.controller.addListener(_updateAnimation);
+    widget.controller.addListener(_controlListener);
     super.initState();
+  }
+
+  void _controlListener() {
+    _updateAnimation();
   }
 
   @override
@@ -138,11 +142,7 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
     final Widget child = SizedBox(
       height: height,
       child: Padding(
-        padding: widget.padding ??
-            babTheme.padding ??
-            (isMaterial3
-                ? const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0)
-                : EdgeInsets.zero),
+        padding: widget.padding ?? EdgeInsets.zero,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -279,24 +279,28 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
       items.add(
         SizedBox(
           width: _getButtonContainerWidth(),
-          child: ConvexItem(
-            onTap: _handlePressed,
-            index: i,
-            isEnable: item.isEnable,
-            icon: item.unselectedIcon == null
-                ? item.icon
-                : widget.controller.index == i
+          child: ListenableBuilder(
+            listenable: widget.controller,
+            builder: (context, child) {
+              return ConvexItem(
+                onTap: _handlePressed,
+                index: i,
+                isEnable: item.isEnable,
+                icon: item.unselectedIcon == null
                     ? item.icon
-                    : item.unselectedIcon,
-            itemSize: item.size,
-            title: item.title,
-            controller: widget.controller,
-            titleTextStyle:
-                item.textStyle?.copyWith(color: getTitleColor(i, item)),
-            isNeedIconColorFilter: item.unselectedIcon == null,
-            color: widget.controller.index == i
-                ? item.selectedColor ?? widget.selectedColor
-                : item.unSelectedColor ?? widget.unSelectedColor,
+                    : widget.controller.index == i
+                        ? item.icon
+                        : item.unselectedIcon,
+                itemSize: item.size,
+                title: item.title,
+                titleTextStyle:
+                    item.textStyle?.copyWith(color: getTitleColor(i, item)),
+                isNeedIconColorFilter: item.unselectedIcon == null,
+                color: widget.controller.index == i
+                    ? item.selectedColor ?? widget.selectedColor
+                    : item.unSelectedColor ?? widget.unSelectedColor,
+              );
+            },
           ),
         ),
       );

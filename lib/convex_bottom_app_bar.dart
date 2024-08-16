@@ -238,28 +238,33 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
     for (int i = 0; i < widget.items.length; i++) {
       var item = widget.items[i];
       items.add(
-        ConvexItem(
-          index: i,
-          onTap: _handlePressed,
-          isEnable: item.isEnable,
-          icon: item.icon,
-          itemSize: item.size,
-          title: item.title,
-          controller: widget.controller,
-          titleTextStyle: item.textStyle?.copyWith(
-                  color: widget.controller?.index == i
-                      ? item.selectedTitleColor ?? widget.selectedTitleColor
-                      : item.unSelectedTitleColor ??
-                          widget.unSelectedTitleColor) ??
-              widget.titleTextStyle?.copyWith(
-                  color: widget.controller?.index == i
-                      ? item.selectedTitleColor ?? widget.selectedTitleColor
-                      : item.unSelectedTitleColor ??
-                          widget.unSelectedTitleColor),
-          color: widget.controller?.index == i
-              ? item.selectedColor ?? widget.selectedColor
-              : item.unSelectedColor ?? widget.unSelectedColor,
-        ),
+        ListenableBuilder(
+            listenable: widget.controller!,
+            builder: (context, child) {
+              return ConvexItem(
+                index: i,
+                onTap: _handlePressed,
+                isEnable: item.isEnable,
+                icon: item.icon,
+                itemSize: item.size,
+                title: item.title,
+                titleTextStyle: item.textStyle?.copyWith(
+                        color: widget.controller?.index == i
+                            ? item.selectedTitleColor ??
+                                widget.selectedTitleColor
+                            : item.unSelectedTitleColor ??
+                                widget.unSelectedTitleColor) ??
+                    widget.titleTextStyle?.copyWith(
+                        color: widget.controller?.index == i
+                            ? item.selectedTitleColor ??
+                                widget.selectedTitleColor
+                            : item.unSelectedTitleColor ??
+                                widget.unSelectedTitleColor),
+                color: widget.controller?.index == i
+                    ? item.selectedColor ?? widget.selectedColor
+                    : item.unSelectedColor ?? widget.unSelectedColor,
+              );
+            }),
       );
     }
 

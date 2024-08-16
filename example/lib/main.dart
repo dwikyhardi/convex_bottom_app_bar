@@ -1,22 +1,22 @@
 import 'package:convex_bottom_app_bar/convex_bottom_app_bar.dart';
 import 'package:convex_bottom_app_bar_example/test_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   int currentPage = 0;
-  late ConvexTabController tabController = ConvexTabController(
-    initialIndex: 0,
-    length: _items().length,
-  );
+  late ConvexTabController tabController = ConvexTabController(initialIndex: 0);
 
   @override
   void initState() {
@@ -41,11 +41,14 @@ class _MyAppState extends State<MyApp> {
         extendBodyBehindAppBar: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          shape: const CircleBorder(),
+          onPressed: () {
+            tabController.jumpToTab(3);
+          },
         ),
         body: ConvexBody(
           controller: tabController,
-          children: [
+          children: const [
             TestPage('Home', Colors.red),
             TestPage('Search', Colors.blue),
             TestPage('Scan QR', Colors.blue),
@@ -55,9 +58,10 @@ class _MyAppState extends State<MyApp> {
         ),
         bottomNavigationBar: ConvexBottomAppBarV2(
           controller: tabController,
-          notchMargin: 5,
-          shape: CircularNotchedRectangle(),
           backgroundColor: Colors.white,
+          selectedColor: CupertinoColors.activeBlue,
+          unSelectedColor: CupertinoColors.inactiveGray,
+          indicatorColor: CupertinoColors.activeBlue,
           items: _items(),
         ),
         // body: ConvexTabView(
@@ -78,29 +82,25 @@ class _MyAppState extends State<MyApp> {
   List<ConvexBottomAppBarItem> _items() {
     return [
       ConvexBottomAppBarItem(
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
         title: 'Home',
       ),
       ConvexBottomAppBarItem(
-        icon: Icon(Icons.search),
+        icon: const Icon(Icons.search),
         title: 'Search',
-        textStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.lightGreen,
-        ),
-        selectedColor: Colors.green,
       ),
       ConvexBottomAppBarItem(
           title: 'Scan QR',
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 11,
               color: Color(0xFFA6A6A6))),
       ConvexBottomAppBarItem(
-        icon: Icon(Icons.card_travel),
+        icon: const Icon(Icons.card_travel),
+        title: 'Travel',
       ),
       ConvexBottomAppBarItem(
-        icon: Icon(Icons.favorite_border),
+        icon: const Icon(Icons.favorite_border),
         title: 'Fav',
       ),
     ];
