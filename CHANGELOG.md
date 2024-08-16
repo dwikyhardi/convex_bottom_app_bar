@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Fix controller
+
 ## 1.0.5
 
 - Fix icon
