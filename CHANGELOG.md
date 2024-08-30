@@ -1,3 +1,7 @@
+## 1.0.7
+
+- add haptic feedback
+
 ## 1.0.6
 
 - Fix controller

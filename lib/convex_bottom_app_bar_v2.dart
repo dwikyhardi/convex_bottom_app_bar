@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'convex_bottom_app_bar.dart';
 
@@ -36,6 +37,8 @@ class ConvexBottomAppBarV2 extends StatefulWidget {
 
   final ConvexTabController controller;
 
+  final bool isUseHapticFeedback;
+
   const ConvexBottomAppBarV2({
     super.key,
     required this.controller,
@@ -54,6 +57,7 @@ class ConvexBottomAppBarV2 extends StatefulWidget {
     this.unSelectedColor,
     this.unSelectedTitleColor,
     this.selectedTitleColor,
+    this.isUseHapticFeedback = false,
   });
 
   @override
@@ -234,6 +238,9 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
     if (widget.controller.index == index || _xController.isAnimating) return;
 
     widget.controller.jumpToTab(index);
+    if (widget.isUseHapticFeedback) {
+      HapticFeedback.mediumImpact();
+    }
 
     _updateAnimation();
   }
