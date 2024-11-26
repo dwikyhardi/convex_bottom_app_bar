@@ -1,40 +1,24 @@
 library convex_bottom_app_bar;
 
-export 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
-export 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
-export 'package:convex_bottom_app_bar/convex_item.dart';
-export 'package:convex_bottom_app_bar/convex_tab_controller.dart';
-export 'package:convex_bottom_app_bar/convex_tab_view.dart';
-export 'package:convex_bottom_app_bar/convex_bottom_app_bar_v2.dart';
-export 'package:convex_bottom_app_bar/convex_body.dart';
-
 import 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
 import 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
 import 'package:convex_bottom_app_bar/convex_item.dart';
 import 'package:convex_bottom_app_bar/convex_tab_controller.dart';
 import 'package:flutter/material.dart';
 
-class ConvexBottomAppBar extends StatefulWidget {
-  final Function(int)? onTap;
-  final ConvexTabController? controller;
-  final List<ConvexBottomAppBarItem> items;
-  final TextStyle? titleTextStyle;
-  final Color? backgroundColor;
-  final Color? indicatorColor;
-  final Color? selectedColor;
-  final Color? unSelectedColor;
-  final Color? selectedTitleColor;
-  final Color? unSelectedTitleColor;
-  final double? convexBottomAppHeight;
-  final bool? isUseCenterFAB;
-  final Widget? floatingActionButtonCenterWidget;
-  final Widget? floatingActionButtonTitle;
-  final BoxDecoration? floatingActionButtonDecoration;
+export 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
+export 'package:convex_bottom_app_bar/convex_body.dart';
+export 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
+export 'package:convex_bottom_app_bar/convex_bottom_app_bar_v2.dart';
+export 'package:convex_bottom_app_bar/convex_item.dart';
+export 'package:convex_bottom_app_bar/convex_tab_controller.dart';
+export 'package:convex_bottom_app_bar/convex_tab_view.dart';
 
+class ConvexBottomAppBar extends StatefulWidget {
   const ConvexBottomAppBar({
+    required this.items,
     this.onTap,
     this.controller,
-    required this.items,
     this.titleTextStyle,
     this.backgroundColor,
     this.indicatorColor,
@@ -56,6 +40,21 @@ class ConvexBottomAppBar extends StatefulWidget {
           '\n\nIf Using floating action button '
           'you must provide 2, 4 or 6 "convexBottomAppBarItems"\n',
         );
+  final Function(int)? onTap;
+  final ConvexTabController? controller;
+  final List<ConvexBottomAppBarItem> items;
+  final TextStyle? titleTextStyle;
+  final Color? backgroundColor;
+  final Color? indicatorColor;
+  final Color? selectedColor;
+  final Color? unSelectedColor;
+  final Color? selectedTitleColor;
+  final Color? unSelectedTitleColor;
+  final double? convexBottomAppHeight;
+  final bool? isUseCenterFAB;
+  final Widget? floatingActionButtonCenterWidget;
+  final Widget? floatingActionButtonTitle;
+  final BoxDecoration? floatingActionButtonDecoration;
 
   @override
   State<ConvexBottomAppBar> createState() => _ConvexBottomAppBarState();

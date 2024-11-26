@@ -22,7 +22,7 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    avoid_print: true  # Uncomment to disable the `avoid_print` rule
+    avoid_print: true
     always_declare_return_types: true
     prefer_single_quotes: true
     sort_child_properties_last: true
@@ -32,6 +32,23 @@ linter:
     unnecessary_lambdas: true
     unnecessary_late: true
     unnecessary_parenthesis: true
+    prefer_const_constructors_in_immutables: true
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    camel_case_types: true
+    sort_constructors_first: true
+    no_logic_in_create_state: true
+    always_use_package_imports: true
+    always_put_required_named_parameters_first: true
+    avoid_positional_boolean_parameters: true
+    sort_pub_dependencies: true
+    directives_ordering: true
+    prefer_conditional_assignment: true
+    always_specify_types: false
+    avoid_dynamic_calls: false
+    no_default_cases: false
+    lines_longer_than_80_chars: false
+    unreachable_from_main: false
 
 analyzer:
   exclude:

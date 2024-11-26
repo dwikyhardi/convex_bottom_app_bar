@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ConvexItem extends StatelessWidget {
+  const ConvexItem({
+    required this.icon,
+    required this.index,
+    required this.onTap,
+    super.key,
+    this.title,
+    this.titleTextStyle,
+    this.isEnable,
+    this.itemSize,
+    this.color,
+    this.isNeedIconColorFilter = true,
+  });
+
   /// Icon that displayed on bottom app bar
   final Widget? icon;
   final double? itemSize;
@@ -11,19 +24,6 @@ class ConvexItem extends StatelessWidget {
   final bool isNeedIconColorFilter;
   final int index;
   final Color? color;
-
-  const ConvexItem({
-    super.key,
-    required this.icon,
-    required this.index,
-    required this.onTap,
-    this.title,
-    this.titleTextStyle,
-    this.isEnable,
-    this.itemSize,
-    this.color,
-    this.isNeedIconColorFilter = true,
-  });
 
   @override
   Widget build(BuildContext context) {

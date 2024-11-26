@@ -1,10 +1,32 @@
+import 'package:convex_bottom_app_bar/convex_bottom_app_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'convex_bottom_app_bar.dart';
-
 class ConvexBottomAppBarV2 extends StatefulWidget {
+  const ConvexBottomAppBarV2({
+    required this.controller,
+    required this.items,
+    super.key,
+    this.backgroundColor,
+    this.elevation,
+    this.shape,
+    this.clipBehavior = Clip.none,
+    this.notchMargin = 5.0,
+    this.padding,
+    this.surfaceTintColor,
+    this.shadowColor,
+    this.height,
+    this.indicatorColor,
+    this.selectedColor,
+    this.unSelectedColor,
+    this.unSelectedTitleColor,
+    this.selectedTitleColor,
+    this.isUseHapticFeedback = false,
+    this.isUseSafeArea = true,
+    this.bottomSafeArea = true,
+    this.safeAreaMinimumInsets = EdgeInsets.zero,
+  });
   final List<ConvexBottomAppBarItem> items;
 
   final EdgeInsetsGeometry? padding;
@@ -39,26 +61,11 @@ class ConvexBottomAppBarV2 extends StatefulWidget {
 
   final bool isUseHapticFeedback;
 
-  const ConvexBottomAppBarV2({
-    super.key,
-    required this.controller,
-    this.backgroundColor,
-    this.elevation,
-    this.shape,
-    this.clipBehavior = Clip.none,
-    this.notchMargin = 5.0,
-    required this.items,
-    this.padding,
-    this.surfaceTintColor,
-    this.shadowColor,
-    this.height,
-    this.indicatorColor,
-    this.selectedColor,
-    this.unSelectedColor,
-    this.unSelectedTitleColor,
-    this.selectedTitleColor,
-    this.isUseHapticFeedback = false,
-  });
+  final bool isUseSafeArea;
+
+  final bool bottomSafeArea;
+
+  final EdgeInsets safeAreaMinimumInsets;
 
   @override
   State createState() => _ConvexBottomAppBarV2();
@@ -156,16 +163,23 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
       ),
     );
 
-    final Material material = Material(
+    final stackChild = Stack(
+      children: [
+        _buildBackground(),
+        child,
+      ],
+    );
+
+    final material = Material(
       key: materialKey,
       type: MaterialType.transparency,
-      child: SafeArea(
-          child: Stack(
-        children: [
-          _buildBackground(),
-          child,
-        ],
-      )),
+      child: widget.isUseSafeArea
+          ? SafeArea(
+              bottom: widget.bottomSafeArea,
+              minimum: widget.safeAreaMinimumInsets,
+              child: stackChild,
+            )
+          : stackChild,
     );
 
     return PhysicalShape(

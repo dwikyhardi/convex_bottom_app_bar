@@ -2,16 +2,6 @@ import 'package:convex_bottom_app_bar/centered_elastic_curve.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundCurvePainter extends CustomPainter {
-  static const _topDistance = 0.0;
-  static const _bottomDistance = 100.0;
-
-  final double _x;
-  final double _normalizedY;
-  final Color _indicatorColor;
-  final Color _backgroundColor;
-  final double _indicatorWidth;
-  final bool _isJustIndicator;
-
   BackgroundCurvePainter({
     required double x,
     required double normalizedY,
@@ -25,6 +15,15 @@ class BackgroundCurvePainter extends CustomPainter {
         _backgroundColor = backgroundColor,
         _indicatorWidth = indicatorWidth,
         _isJustIndicator = isJustIndicator;
+  static const _topDistance = 0.0;
+  static const _bottomDistance = 100.0;
+
+  final double _x;
+  final double _normalizedY;
+  final Color _indicatorColor;
+  final Color _backgroundColor;
+  final double _indicatorWidth;
+  final bool _isJustIndicator;
 
   @override
   void paint(canvas, size) {

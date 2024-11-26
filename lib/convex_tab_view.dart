@@ -1,13 +1,12 @@
+import 'package:convex_bottom_app_bar/convex_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
-
-import 'convex_bottom_app_bar.dart';
 
 class ConvexTabView extends StatelessWidget {
   const ConvexTabView({
-    super.key,
     required ConvexTabController controller,
     required List<ConvexBottomAppBarItem> items,
     required List<Widget> screens,
+    super.key,
     Color? backgroundColor,
     Color? indicatorColor,
     Color? selectedColor,
