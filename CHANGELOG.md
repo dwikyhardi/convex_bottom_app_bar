@@ -1,3 +1,7 @@
+## 1.0.8
+
+- Fix `SafeArea`
+
 ## 1.0.7
 
 - add haptic feedback
