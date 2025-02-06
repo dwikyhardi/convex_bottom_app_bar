@@ -1,3 +1,8 @@
+## 1.0.9
+
+- Update dependencies
+- Improve performance
+
 ## 1.0.8
 
 - Fix `SafeArea`
