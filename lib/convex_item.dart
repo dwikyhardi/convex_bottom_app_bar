@@ -27,10 +27,10 @@ class ConvexItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onTap(index);
-      },
+    return InkWell(
+      onTap: () => onTap(index),
+      overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+      borderRadius: BorderRadius.circular(8),
       child: Builder(builder: (context) {
         if (icon == null) {
           return Column(
