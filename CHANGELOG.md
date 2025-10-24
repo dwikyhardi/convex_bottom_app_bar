@@ -1,4 +1,12 @@
-## 1.0.9
+## [1.0.10]
+
+### Changed
+- Improved documentation and custom lint rules ([2c45bf0](https://github.com/dwikyhardi/convex_bottom_app_bar/commit/2c45bf0))
+
+### Fixed
+- Updated Flutter version and refactored BottomAppBarTheme usage ([1e0fa1e](https://github.com/dwikyhardi/convex_bottom_app_bar/commit/1e0fa1e))
+
+## [1.0.9]
 
 - Update dependencies
 - Improve performance
