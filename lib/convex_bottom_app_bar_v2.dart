@@ -27,6 +27,7 @@ class ConvexBottomAppBarV2 extends StatefulWidget {
     this.bottomSafeArea = true,
     this.safeAreaMinimumInsets = EdgeInsets.zero,
   });
+
   final List<ConvexBottomAppBarItem> items;
 
   final EdgeInsetsGeometry? padding;
@@ -115,8 +116,8 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final bool isMaterial3 = theme.useMaterial3;
-    final BottomAppBarTheme babTheme = BottomAppBarTheme.of(context);
-    final BottomAppBarTheme defaults = isMaterial3
+    final BottomAppBarThemeData babTheme = BottomAppBarTheme.of(context);
+    final BottomAppBarThemeData defaults = isMaterial3
         ? _ConvexBottomAppBarDefaultsM3(context)
         : _ConvexBottomAppBarDefaultsM2(context);
 
@@ -378,7 +379,7 @@ class _ConvexBottomAppBarClipper extends CustomClipper<Path> {
   }
 }
 
-class _ConvexBottomAppBarDefaultsM2 extends BottomAppBarTheme {
+class _ConvexBottomAppBarDefaultsM2 extends BottomAppBarThemeData {
   const _ConvexBottomAppBarDefaultsM2(this.context)
       : super(
           elevation: 8.0,
@@ -403,7 +404,7 @@ class _ConvexBottomAppBarDefaultsM2 extends BottomAppBarTheme {
 // Design token database by the script:
 //   dev/tools/gen_defaults/bin/gen_defaults.dart.
 
-class _ConvexBottomAppBarDefaultsM3 extends BottomAppBarTheme {
+class _ConvexBottomAppBarDefaultsM3 extends BottomAppBarThemeData {
   _ConvexBottomAppBarDefaultsM3(this.context)
       : super(
           elevation: 3.0,
