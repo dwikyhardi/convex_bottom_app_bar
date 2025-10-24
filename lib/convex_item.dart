@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 
+/// A widget that represents an item in a convex bottom app bar.
+/// Displays an icon and/or title, and handles tap events.
 class ConvexItem extends StatelessWidget {
+  /// Creates a [ConvexItem] widget.
+  ///
+  /// Displays an icon and/or title for a convex bottom app bar item.
+  ///
+  /// Parameters:
+  /// - [icon]: The icon widget to display.
+  /// - [index]: The index of the item.
+  /// - [onTap]: Callback when the item is tapped.
+  /// - [title]: Optional title text.
+  /// - [titleTextStyle]: Optional text style for the title.
+  /// - [isEnable]: Optional flag to enable/disable the item.
+  /// - [itemSize]: Optional size for the item.
+  /// - [color]: Optional color for icon and text.
+  /// - [isNeedIconColorFilter]: Whether to apply a color filter to the icon.
   const ConvexItem({
     required this.icon,
     required this.index,
@@ -14,15 +30,31 @@ class ConvexItem extends StatelessWidget {
     this.isNeedIconColorFilter = true,
   });
 
-  /// Icon that displayed on bottom app bar
+  /// The icon widget to display for the item.
   final Widget? icon;
+
+  /// The size of the item.
   final double? itemSize;
+
+  /// Whether the item is enabled.
   final bool? isEnable;
+
+  /// The title text for the item.
   final String? title;
+
+  /// The text style for the title.
   final TextStyle? titleTextStyle;
-  final Function(int) onTap;
+
+  /// Callback function when the item is tapped, receives the item's index.
+  final void Function(int) onTap;
+
+  /// Whether to apply a color filter to the icon.
   final bool isNeedIconColorFilter;
+
+  /// The index of the item.
   final int index;
+
+  /// The color for the icon and text.
   final Color? color;
 
   @override
@@ -34,8 +66,6 @@ class ConvexItem extends StatelessWidget {
       child: Builder(builder: (context) {
         if (icon == null) {
           return Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
@@ -53,37 +83,35 @@ class ConvexItem extends StatelessWidget {
 
         if (title == null) {
           return Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              isNeedIconColorFilter
-                  ? ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        color ?? Colors.black,
-                        BlendMode.srcIn,
-                      ),
-                      child: icon,
-                    )
-                  : icon ?? const SizedBox(),
+              if (isNeedIconColorFilter)
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    color ?? Colors.black,
+                    BlendMode.srcIn,
+                  ),
+                  child: icon,
+                )
+              else
+                icon ?? const SizedBox(),
             ],
           );
         }
 
         return Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            isNeedIconColorFilter
-                ? ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      color ?? Colors.black,
-                      BlendMode.srcIn,
-                    ),
-                    child: icon,
-                  )
-                : icon ?? const SizedBox(),
+            if (isNeedIconColorFilter)
+              ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  color ?? Colors.black,
+                  BlendMode.srcIn,
+                ),
+                child: icon,
+              )
+            else
+              icon ?? const SizedBox(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Text(

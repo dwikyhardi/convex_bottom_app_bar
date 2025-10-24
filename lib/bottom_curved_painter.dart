@@ -1,7 +1,18 @@
 import 'package:convex_bottom_app_bar/centered_elastic_curve.dart';
 import 'package:flutter/material.dart';
 
+/// A custom painter that draws a background curve and an indicator
+/// for a convex bottom app bar. The curve and indicator are
+/// dynamically positioned and sized based on the provided parameters.
 class BackgroundCurvePainter extends CustomPainter {
+  /// Creates a [BackgroundCurvePainter] with the given parameters.
+  ///
+  /// - [x]: The horizontal position for the curve and indicator.
+  /// - [normalizedY]: The normalized vertical position for curve calculation.
+  /// - [backgroundColor]: The color of the background curve.
+  /// - [indicatorColor]: The color of the indicator.
+  /// - [indicatorWidth]: The width of the indicator.
+  /// - [isJustIndicator]: If true, only the indicator is painted.
   BackgroundCurvePainter({
     required double x,
     required double normalizedY,
@@ -26,12 +37,12 @@ class BackgroundCurvePainter extends CustomPainter {
   final bool _isJustIndicator;
 
   @override
-  void paint(canvas, size) {
+  void paint(Canvas canvas, Size size) {
     // Paint two cubic bezier curves using various linear interpolations based off of the `_normalizedY` value
-    final norm = const LinearPointCurve(0.5, 2.0).transform(_normalizedY) / 5;
+    final norm = const LinearPointCurve(0.5, 2).transform(_normalizedY) / 5;
 
     final dist = Tween<double>(begin: _topDistance, end: _bottomDistance)
-        .transform(const LinearPointCurve(0.5, 0.0).transform(norm));
+        .transform(const LinearPointCurve(0.5, 0).transform(norm));
     final x1 = _x - (dist / 2);
 
     final indicatorPath = Path()

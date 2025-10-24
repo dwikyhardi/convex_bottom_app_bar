@@ -1,3 +1,6 @@
+// Flutter code sample for convex_bottom_app_bar
+// ignore_for_file: public_member_api_docs
+
 import 'package:convex_bottom_app_bar/convex_bottom_app_bar.dart';
 import 'package:convex_bottom_app_bar_example/test_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int currentPage = 0;
-  late ConvexTabController tabController = ConvexTabController(initialIndex: 0);
+  late ConvexTabController tabController = ConvexTabController();
 
   @override
   void initState() {
@@ -38,7 +41,6 @@ class _MyAppState extends State<MyApp> {
         ),
         extendBody: true,
         resizeToAvoidBottomInset: false,
-        extendBodyBehindAppBar: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           shape: const CircleBorder(),

@@ -1,3 +1,5 @@
+// Flutter code sample for convex_bottom_app_bar
+// ignore_for_file: public_member_api_docs
 import 'package:flutter/material.dart';
 
 class TestPage extends StatefulWidget {

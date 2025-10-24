@@ -3,7 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// A customizable convex bottom app bar widget with support for
+/// animated indicator, safe area, haptic feedback, and theming.
+///
+/// Use this widget to display a convex-shaped bottom navigation bar
+/// with animated transitions and optional integration with a
+/// FloatingActionButton.
 class ConvexBottomAppBarV2 extends StatefulWidget {
+  /// Creates a customizable convex bottom app bar widget.
+  ///
+  /// The [ConvexBottomAppBarV2] constructor requires a [controller] and a list of [items].
+  /// Optional parameters allow customization of appearance, behavior, and safe area handling.
   const ConvexBottomAppBarV2({
     required this.controller,
     required this.items,
@@ -28,44 +38,64 @@ class ConvexBottomAppBarV2 extends StatefulWidget {
     this.safeAreaMinimumInsets = EdgeInsets.zero,
   });
 
+  /// The list of items to display in the ConvexBottomAppBar.
   final List<ConvexBottomAppBarItem> items;
 
+  /// The padding around the content of the bottom app bar.
   final EdgeInsetsGeometry? padding;
 
+  /// The background color of the bottom app bar.
   final Color? backgroundColor;
 
+  /// The color of the selected icon.
   final Color? selectedColor;
 
+  /// The color of the unselected icon.
   final Color? unSelectedColor;
 
+  /// The color of the selected title.
   final Color? selectedTitleColor;
 
+  /// The color of the unselected title.
   final Color? unSelectedTitleColor;
 
+  /// The elevation of the bottom app bar.
   final double? elevation;
 
+  /// The shape of the notch for the FloatingActionButton.
   final NotchedShape? shape;
 
+  /// The clip behavior for the bottom app bar.
   final Clip clipBehavior;
 
+  /// The margin around the notch.
   final double notchMargin;
 
+  /// The surface tint color for Material 3.
   final Color? surfaceTintColor;
 
+  /// The shadow color of the bottom app bar.
   final Color? shadowColor;
 
+  /// The color of the animated indicator.
   final Color? indicatorColor;
 
+  /// The height of the bottom app bar.
   final double? height;
 
+  /// The controller for managing tab selection.
   final ConvexTabController controller;
 
+  /// Whether to use haptic feedback on tab change.
   final bool isUseHapticFeedback;
 
+  /// Whether to use a SafeArea for the bottom app bar.
   final bool isUseSafeArea;
 
+  /// Whether to apply the SafeArea to the bottom.
   final bool bottomSafeArea;
 
+  /// The minimum insets for the SafeArea.
   final EdgeInsets safeAreaMinimumInsets;
 
   @override
@@ -114,17 +144,16 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final bool isMaterial3 = theme.useMaterial3;
-    final BottomAppBarThemeData babTheme = BottomAppBarTheme.of(context);
-    final BottomAppBarThemeData defaults = isMaterial3
+    final theme = Theme.of(context);
+    final isMaterial3 = theme.useMaterial3;
+    final babTheme = BottomAppBarTheme.of(context);
+    final defaults = isMaterial3
         ? _ConvexBottomAppBarDefaultsM3(context)
         : _ConvexBottomAppBarDefaultsM2(context);
 
-    final bool hasFab = Scaffold.of(context).hasFloatingActionButton;
-    final NotchedShape? notchedShape =
-        widget.shape ?? babTheme.shape ?? defaults.shape;
-    final CustomClipper<Path> clipper = notchedShape != null && hasFab
+    final hasFab = Scaffold.of(context).hasFloatingActionButton;
+    final notchedShape = widget.shape ?? babTheme.shape ?? defaults.shape;
+    final clipper = notchedShape != null && hasFab
         ? _ConvexBottomAppBarClipper(
             geometry: geometryListenable,
             shape: notchedShape,
@@ -132,23 +161,23 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
             notchMargin: widget.notchMargin,
           )
         : const ShapeBorderClipper(shape: RoundedRectangleBorder());
-    final double elevation =
+    final elevation =
         widget.elevation ?? babTheme.elevation ?? defaults.elevation!;
-    final double height = widget.height ??
+    final height = widget.height ??
         babTheme.height ??
         defaults.height ??
         AppBar().preferredSize.height;
-    final Color color = widget.backgroundColor ??
+    final color = widget.backgroundColor ??
         babTheme.color ??
         defaults.color ??
         Colors.white;
-    final Color surfaceTintColor = widget.surfaceTintColor ??
+    final surfaceTintColor = widget.surfaceTintColor ??
         babTheme.surfaceTintColor ??
         defaults.surfaceTintColor!;
-    final Color effectiveColor = isMaterial3
+    final effectiveColor = isMaterial3
         ? ElevationOverlay.applySurfaceTint(color, surfaceTintColor, elevation)
         : ElevationOverlay.applyOverlay(context, color, elevation);
-    final Color shadowColor =
+    final shadowColor =
         widget.shadowColor ?? babTheme.shadowColor ?? defaults.shadowColor!;
 
     final Widget child = SizedBox(
@@ -156,8 +185,6 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
       child: Padding(
         padding: widget.padding ?? EdgeInsets.zero,
         child: Row(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: _populateIcons() ?? [],
         ),
@@ -212,7 +239,7 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
   }
 
   double _getButtonContainerWidth() {
-    double width = MediaQuery.sizeOf(context).width / (widget.items.length);
+    final width = MediaQuery.sizeOf(context).width / (widget.items.length);
 
     // if (isUseCenterFAB == true) {
     //   return width - 56;
@@ -279,7 +306,7 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
             duration: const Duration(milliseconds: 600));
       },
     );
-    _yController.animateTo(0.0, duration: const Duration(milliseconds: 150));
+    _yController.animateTo(0, duration: const Duration(milliseconds: 150));
   }
 
   List<Widget>? _populateIcons() {
@@ -295,9 +322,9 @@ class _ConvexBottomAppBarV2 extends State<ConvexBottomAppBarV2>
       }
     }
 
-    List<Widget>? items = [];
-    for (int i = 0; i < widget.items.length; i++) {
-      var item = widget.items[i];
+    final items = <Widget>[];
+    for (var i = 0; i < widget.items.length; i++) {
+      final item = widget.items[i];
       items.add(
         SizedBox(
           width: _getButtonContainerWidth(),
@@ -351,13 +378,11 @@ class _ConvexBottomAppBarClipper extends CustomClipper<Path> {
   // geometry value, otherwise we compute the location based on the AppBar's
   // Material widget.
   double get bottomNavigationBarTop {
-    final double? bottomNavigationBarTop =
-        geometry.value.bottomNavigationBarTop;
+    final bottomNavigationBarTop = geometry.value.bottomNavigationBarTop;
     if (bottomNavigationBarTop != null) {
       return bottomNavigationBarTop;
     }
-    final RenderBox? box =
-        materialKey.currentContext?.findRenderObject() as RenderBox?;
+    final box = materialKey.currentContext?.findRenderObject() as RenderBox?;
     return box?.localToGlobal(Offset.zero).dy ?? 0;
   }
 
@@ -366,8 +391,8 @@ class _ConvexBottomAppBarClipper extends CustomClipper<Path> {
     // button is the floating action button's bounding rectangle in the
     // coordinate system whose origin is at the appBar's top left corner,
     // or null if there is no floating action button.
-    final Rect? button = geometry.value.floatingActionButtonArea
-        ?.translate(0.0, bottomNavigationBarTop * -1.0);
+    final button = geometry.value.floatingActionButtonArea
+        ?.translate(0, bottomNavigationBarTop * -1.0);
     return shape.getOuterPath(Offset.zero & size, button?.inflate(notchMargin));
   }
 
@@ -382,7 +407,7 @@ class _ConvexBottomAppBarClipper extends CustomClipper<Path> {
 class _ConvexBottomAppBarDefaultsM2 extends BottomAppBarThemeData {
   const _ConvexBottomAppBarDefaultsM2(this.context)
       : super(
-          elevation: 8.0,
+          elevation: 8,
         );
 
   final BuildContext context;
@@ -407,8 +432,8 @@ class _ConvexBottomAppBarDefaultsM2 extends BottomAppBarThemeData {
 class _ConvexBottomAppBarDefaultsM3 extends BottomAppBarThemeData {
   _ConvexBottomAppBarDefaultsM3(this.context)
       : super(
-          elevation: 3.0,
-          height: 80.0,
+          elevation: 3,
+          height: 80,
           shape: const AutomaticNotchedShape(RoundedRectangleBorder()),
         );
 

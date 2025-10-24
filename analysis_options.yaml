@@ -7,7 +7,14 @@
 
 # The following line activates a set of recommended lints for Flutter apps,
 # packages, and plugins designed to encourage good coding practices.
-include: package:flutter_lints/flutter.yaml
+include:
+  - package:pedantic_mono/analysis_options.yaml
+  - package:leancode_lint/analysis_options_package.yaml
+
+custom_lint:
+  rules:
+    - use_dedicated_media_query_methods
+    - start_comments_with_space
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -48,6 +55,7 @@ linter:
     no_default_cases: false
     lines_longer_than_80_chars: false
     unreachable_from_main: false
+    always_put_control_body_on_new_line: false
 
 analyzer:
   exclude:

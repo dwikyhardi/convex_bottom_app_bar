@@ -1,7 +1,21 @@
 import 'package:convex_bottom_app_bar/convex_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
+/// A widget that displays a tab view with a convex bottom app bar.
+///
+/// [ConvexTabView] manages navigation between multiple screens using a custom
+/// convex bottom navigation bar. It requires a [ConvexTabController] to handle
+/// tab selection, a list of [ConvexBottomAppBarItem] for the navigation items,
+/// and a list of [Widget] screens to display for each tab.
+///
+/// Additional customization options are available for colors, shapes, padding,
+/// and other visual properties.
 class ConvexTabView extends StatelessWidget {
+  /// Creates a [ConvexTabView] widget.
+  ///
+  /// Requires a [ConvexTabController], a list of [ConvexBottomAppBarItem] for navigation,
+  /// and a list of [Widget] screens for each tab. Additional optional parameters allow
+  /// customization of colors, shapes, padding, and other visual properties.
   const ConvexTabView({
     required ConvexTabController controller,
     required List<ConvexBottomAppBarItem> items,
@@ -87,7 +101,7 @@ class ConvexTabView extends StatelessWidget {
           },
         ),
         Positioned(
-          bottom: 0.0,
+          bottom: 0,
           width: MediaQuery.of(context).size.width,
           child: ConvexBottomAppBarV2(
             items: _items,

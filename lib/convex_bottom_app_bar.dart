@@ -12,7 +12,33 @@ export 'package:convex_bottom_app_bar/convex_item.dart';
 export 'package:convex_bottom_app_bar/convex_tab_controller.dart';
 export 'package:convex_bottom_app_bar/convex_tab_view.dart';
 
+/// A custom bottom app bar widget with a convex shape and optional center FAB.
+///
+/// Displays a list of [ConvexBottomAppBarItem]s and supports animated transitions,
+/// custom styles, and a floating action button in the center.
+///
+/// The number of items must be greater than zero. If [isUseCenterFAB] is true,
+/// the number of items must be 2, 4, or 6.
+///
+/// See also:
+///  - [ConvexBottomAppBarItem]
+///  - [ConvexTabController]
 class ConvexBottomAppBar extends StatefulWidget {
+  /// Creates a [ConvexBottomAppBar] widget.
+  ///
+  /// [items] is required and must contain at least one item.
+  /// [onTap] is called when an item is tapped.
+  /// [controller] manages the selected tab index.
+  /// [titleTextStyle] customizes the style of item titles.
+  /// [backgroundColor] sets the background color of the app bar.
+  /// [indicatorColor] sets the color of the indicator.
+  /// [selectedColor] and [unSelectedColor] set the colors for selected and unselected items.
+  /// [selectedTitleColor] and [unSelectedTitleColor] set the colors for selected and unselected titles.
+  /// [convexBottomAppHeight] sets the height of the app bar.
+  /// [isUseCenterFAB] enables a center floating action button.
+  /// [floatingActionButtonCenterWidget] is the widget displayed in the center FAB.
+  /// [floatingActionButtonTitle] is the title below the center FAB.
+  /// [floatingActionButtonDecoration] customizes the FAB's decoration.
   const ConvexBottomAppBar({
     required this.items,
     this.onTap,
@@ -32,26 +58,55 @@ class ConvexBottomAppBar extends StatefulWidget {
     super.key,
   })  : assert(items.length > 0),
         assert(
-          isUseCenterFAB == true
-              ? items.length == 2 || items.length == 4 || items.length == 6
-              : true,
+          isUseCenterFAB != true ||
+              (items.length == 2 || items.length == 4 || items.length == 6),
           '\n\nIf Using floating action button '
           'you must provide 2, 4 or 6 "convexBottomAppBarItems"\n',
         );
-  final Function(int)? onTap;
+
+  /// Called when an item is tapped, passing the index of the tapped item.
+  final void Function(int)? onTap;
+
+  /// Controller to manage the selected tab index.
   final ConvexTabController? controller;
+
+  /// List of items to display in the bottom app bar.
   final List<ConvexBottomAppBarItem> items;
+
+  /// Custom style for item titles.
   final TextStyle? titleTextStyle;
+
+  /// Background color of the app bar.
   final Color? backgroundColor;
+
+  /// Color of the indicator below the selected item.
   final Color? indicatorColor;
+
+  /// Color for selected items.
   final Color? selectedColor;
+
+  /// Color for unselected items.
   final Color? unSelectedColor;
+
+  /// Color for selected item titles.
   final Color? selectedTitleColor;
+
+  /// Color for unselected item titles.
   final Color? unSelectedTitleColor;
+
+  /// Height of the convex bottom app bar.
   final double? convexBottomAppHeight;
+
+  /// Whether to use a center floating action button.
   final bool? isUseCenterFAB;
+
+  /// Widget to display in the center floating action button.
   final Widget? floatingActionButtonCenterWidget;
+
+  /// Title widget below the center floating action button.
   final Widget? floatingActionButtonTitle;
+
+  /// Decoration for the center floating action button.
   final BoxDecoration? floatingActionButtonDecoration;
 
   @override
@@ -128,7 +183,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   }
 
   double _getButtonContainerWidth() {
-    double width = MediaQuery.of(context).size.width / (widget.items.length);
+    final width = MediaQuery.of(context).size.width / (widget.items.length);
 
     // if (isUseCenterFAB == true) {
     //   return width - 56;
@@ -140,7 +195,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   void _handlePressed(int index) {
     if (_selectedIndex == index || _xController.isAnimating) return;
     if (widget.onTap != null) {
-      widget.onTap!(index);
+      widget.onTap?.call(index);
     }
     setState(() {
       _selectedIndex = index;
@@ -162,7 +217,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
             duration: const Duration(milliseconds: 600));
       },
     );
-    _yController.animateTo(0.0, duration: const Duration(milliseconds: 150));
+    _yController.animateTo(0, duration: const Duration(milliseconds: 150));
   }
 
   @override
@@ -188,17 +243,15 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
             width: appSize.width,
             height: height,
             child: Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: _populateIcons() ?? [],
             ),
           ),
-          if (widget.isUseCenterFAB == true)
+          if (widget.isUseCenterFAB ?? false)
             Positioned(
               left: 0,
               top: 0,
-              right: 0.0,
+              right: 0,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -231,9 +284,9 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
   }
 
   List<Widget>? _populateIcons() {
-    List<Widget>? items = [];
-    for (int i = 0; i < widget.items.length; i++) {
-      var item = widget.items[i];
+    final items = <Widget>[];
+    for (var i = 0; i < widget.items.length; i++) {
+      final item = widget.items[i];
       items.add(
         ListenableBuilder(
             listenable: widget.controller!,
@@ -265,7 +318,7 @@ class _ConvexBottomAppBarState extends State<ConvexBottomAppBar>
       );
     }
 
-    if (widget.isUseCenterFAB == true) {
+    if (widget.isUseCenterFAB ?? false) {
       // items.insert(2, Container(width: 0));
       return items;
     } else {
