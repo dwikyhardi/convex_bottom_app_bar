@@ -1,5 +1,3 @@
-library convex_bottom_app_bar;
-
 import 'package:convex_bottom_app_bar/bottom_curved_painter.dart';
 import 'package:convex_bottom_app_bar/convex_bottom_app_bar_item.dart';
 import 'package:convex_bottom_app_bar/convex_item.dart';
